@@ -3,8 +3,8 @@
     /**
      * Register meta fields for some common plugins like WordPress SEO or ACF
      */
-    add_action( 'init', 'wuxt_register_acf_meta' );
-    add_action( 'init', 'wuxt_register_yoast_meta' );
+    // add_action( 'init', 'wuxt_register_acf_meta' );
+    // add_action( 'init', 'wuxt_register_yoast_meta' );
 
     function wuxt_register_acf_meta() {
 
