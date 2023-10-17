@@ -14,8 +14,22 @@
 
     add_action('init', 'wuxt_register_menu');
     function wuxt_register_menu() {
-        register_nav_menu('main', __('Main meny'));
+        register_nav_menu('main', __('Main menu'));
     }
+
+	/*// create custom function to return nav menu
+	function custom_wp_menu() {
+		// Replace your menu name, slug or ID carefully
+		return wp_get_nav_menu_items('Main Navigation');
+	}
+
+	// create new endpoint route
+	add_action( 'rest_api_init', function () {
+		register_rest_route( 'wp/v2', 'menu', array(
+			'methods' => 'GET',
+			'callback' => 'custom_wp_menu',
+		) );
+	} );*/
 
 
     /**
@@ -62,4 +76,23 @@
     			. wp_create_nonce( 'wp_rest' );
     	}
     }
+
     add_filter( 'preview_post_link', 'set_headless_preview_link' );
+
+	// wordpress api for logo extension
+	add_action( 'rest_api_init', 'add_logo_to_JSON' );
+	function add_logo_to_JSON() {
+	register_rest_field( 'post', 'page_logo_src', array( // post for where to register - page_logo_src is the name for api
+			'get_callback'    => 'get_logo_src',
+			'update_callback' => null,
+			'schema'          => null,
+			 )
+		);
+	}
+
+	function get_logo_src( $object, $field_name, $request ) {
+		$size = 'full';
+		$custom_logo_id = get_theme_mod( 'custom_logo' );
+		$feat_img_array = wp_get_attachment_image_src($custom_logo_id, $size, true);
+		return $feat_img_array[0];
+	}

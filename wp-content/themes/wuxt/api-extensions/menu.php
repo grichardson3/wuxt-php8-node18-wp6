@@ -190,8 +190,8 @@ class Menu
 add_action('init', 'wuxt_register_menu');
 function wuxt_register_menu()
 {
-    register_nav_menu('main', __('Main meny'));
-    register_nav_menu('social', __('Social meny'));
+    register_nav_menu('main', __('Main menu'));
+    register_nav_menu('social', __('Social menu'));
 }
 
 
